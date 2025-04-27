@@ -1,4 +1,4 @@
-import ThankyouComponent from '@/components/layout/Thankyou'
+import ThankyouComponent from '@/components/layout/ThankYou'
 import React from 'react'
 
 const page = (props) => {
