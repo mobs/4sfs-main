@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.perspective {
+  perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.radial-gradient {
+  background-size: 400% 400%;
+  background: radial-gradient(circle, #6a5acd, #8a2be2, #9370db);
+  animation: gradientAnimation 8s ease infinite;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+/* styles/fonts.css */
+@font-face {
+  font-family: 'Modernline';
+  src: url('/fonts/modernline.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BigCalson';
+  src: url('/fonts/bogcaslon.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+.blur-in {
+  opacity: 1;
+  transition: opacity 0.1s ease-in;
+}
+
+.blur-out {
+  opacity: 0;
+  transition: opacity 0.1s ease-out;
+}
+
+/* Custom CSS for the overlay effect */
+.overlay-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay-button::before {
+  content: '';
+  rotate: 0;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 0px;
+  height: 100%;
+  background-color: #C58C34;
+  transition: width 0.5s ease;
+}
+
+.overlay-button:hover::before {
+  width: 100%;
+}
+
+.rotate3d {
+  transform: rotate3d(2,1,1,90deg);
+}
+
+.wave {
+  position: absolute;
+  width: 100%;
+  height: 150px; /* Increased height */
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%23FFFFFF'/%3E%3C/svg%3E"); /* Changed to white */
+  background-size: 1600px 150px;
+}
+
+.wave1 {
+  animation: wave 30s linear infinite;
+  z-index: 1;
+  opacity: 0.7; /* Increased from 0.5 */
+  animation-delay: 0s;
+  bottom: 0;
+}
+
+.wave2 {
+  animation: wave2 15s linear infinite;
+  z-index: 2;
+  opacity: 0.5; /* Increased from 0.3 */
+  animation-delay: -5s;
+  bottom: 10px;
+}
+
+.wave3 {
+  animation: wave 30s linear infinite;
+  z-index: 3;
+  opacity: 0.3; /* Increased from 0.2 */
+  animation-delay: -2s;
+  bottom: 15px;
+}
+
+@keyframes wave {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 1600px;
+  }
+}
+
+@keyframes wave2 {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: -1600px;
+  }
+}
+
+/* Masonry Grid Layout for Featured Properties */
+.grid-masonry {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-areas:
+    "a1 a2 a3 a4 a5"
+    "a1 a2 a3 a4 a5"
+    "a1 a2 a3 a4 a5"
+    "a6 a7 a8 a4 a9"
+    "a6 a7 a8 a10 a9"
+    "a6 a7 a8 a10 a9"
+    "a6 a11 a11 a10 a12"
+    "a6 a11 a11 a10 a12";
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(3, 80px) repeat(3, 70px) repeat(2, 90px);
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Media query for large tablets and small desktops */
+@media (max-width: 1200px) {
+  .grid-masonry {
+    grid-template-areas:
+      "a1 a2 a3 a4"
+      "a1 a2 a3 a4"
+      "a5 a6 a7 a8"
+      "a5 a6 a7 a8"
+      "a9 a10 a11 a12"
+      "a9 a10 a11 a12";
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, minmax(120px, auto));
+    gap: 1rem;
+  }
+}
+
+/* Media query for medium tablets */
+@media (max-width: 991px) {
+  .grid-masonry {
+    grid-template-areas:
+      "a1 a2"
+      "a3 a4"
+      "a5 a6"
+      "a7 a8"
+      "a9 a10"
+      "a11 a12";
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 180px);
+    gap: 1rem;
+  }
+}
+
+/* Media query for mobile */
+@media (max-width: 576px) {
+  .grid-masonry {
+    grid-template-areas:
+      "a1"
+      "a2"
+      "a3"
+      "a4"
+      "a5"
+      "a6"
+      "a7"
+      "a8"
+      "a9"
+      "a10"
+      "a11"
+      "a12";
+    grid-template-columns: 1fr;
+    grid-auto-rows: 200px;
+    grid-template-rows: none;
+    gap: 0.75rem;
+  }
+}
+
