@@ -58,7 +58,7 @@ const PropertyNearby = () => {
     <div id="nearby" className="scroll-mt-16">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl font-semibold text-primary">Nearby Places</h2>
-        <span className="text-sm text-tertiary bg-primary/5 px-4 py-1.5 rounded-full">
+        <span className="text-sm text-primary bg-secondary px-4 py-1.5 rounded-full">
           {nearbyPlaces.reduce((acc, cat) => acc + cat.places.length, 0)} Places
         </span>
       </div>
@@ -67,11 +67,11 @@ const PropertyNearby = () => {
         {nearbyPlaces.map((category, index) => (
           <div 
             key={index} 
-            className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+            className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300"
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center">
-                <category.icon className="text-2xl text-primary" />
+              <div className="w-12 h-12 rounded-full bg-highlight flex items-center justify-center">
+                <category.icon className="text-2xl text-secondary" />
               </div>
               <h3 className="text-lg font-medium text-primary">{category.category}</h3>
             </div>
@@ -80,15 +80,15 @@ const PropertyNearby = () => {
               {category.places.map((place, placeIndex) => (
                 <div 
                   key={placeIndex} 
-                  className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition-colors duration-200"
+                  className="flex items-center justify-between p-3 rounded-xl hover:bg-quaternary transition-all duration-200"
                 >
                   <div className="flex items-center gap-3">
-                    <FaMapMarkerAlt className="text-primary/60" />
+                    <FaMapMarkerAlt className="text-secondary" />
                     <div>
                       <h4 className="text-tertiary font-medium">{place.name}</h4>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-gray-500">{place.distance}</span>
-                        <span className="text-xs text-primary">★ {place.rating}</span>
+                        <span className="text-xs text-muted">{place.distance}</span>
+                        <span className="text-xs text-accent">★ {place.rating}</span>
                       </div>
                     </div>
                   </div>

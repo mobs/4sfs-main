@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Heading = ({ title, subtitle, center }) => {
+const Heading = ({ title, subtitle, center, textColor }) => {
   const titleChars = title.split('');
   
   const containerVariants = {
@@ -75,7 +75,7 @@ const Heading = ({ title, subtitle, center }) => {
               <motion.span
                 key={index}
                 variants={charVariants}
-                className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary inline-block"
+                className={`text-3xl md:text-4xl lg:text-5xl font-bold ${textColor ? textColor : "text-primary"} inline-block`}
               >
                 {char === ' ' ? '\u00A0' : char}
               </motion.span>

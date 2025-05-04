@@ -31,10 +31,10 @@ const PropertyHeader = () => {
         
         <div className="absolute top-4 right-4 flex gap-2">
           <button className="bg-white bg-opacity-90 p-2 rounded-full hover:bg-opacity-100 transition-all">
-            <FaShare className="text-gray-700" />
+            <FaShare className="text-darkgray" />
           </button>
           <button className="bg-white bg-opacity-90 p-2 rounded-full hover:bg-opacity-100 transition-all">
-            <FaHeart className="text-gray-700" />
+            <FaHeart className="text-darkgray" />
           </button>
         </div>
       </div>
@@ -58,13 +58,6 @@ const PropertyHeader = () => {
             />
           </button>
         ))}
-      </div>
-
-      {/* View Listing Button */}
-      <div className="flex justify-between items-center mt-4">
-        <button className="text-sm text-gray-600 hover:text-gray-800">
-          View Listing
-        </button>
       </div>
     </div>
   );

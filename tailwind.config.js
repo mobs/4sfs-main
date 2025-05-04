@@ -17,11 +17,18 @@ module.exports = {
         caslon: ['BigCaslon', 'serif']
       },
       colors: {
-        background: "#4059AC",
         primary: '#093819',
         secondary: '#35DEA4',
         tertiary: '#ADB4AF',
         quaternary: '#F6f6d0',
+        accent: '#ED8936',
+        lightgray: '#EDF2F7',
+        darkgray: '#2D3748',
+        bgGray: '#F9FAFB',
+        success: '#48BB78',
+        warning: '#ECC94B',
+        error: '#F56565',
+        muted: '#718096',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
@@ -60,6 +67,6 @@ module.exports = {
     },
   },
   plugins: [
-    require('flowbite/plugin'),
+    // require('flowbite/plugin'),
   ],
 };

@@ -8,7 +8,7 @@ const HeroSectionRight = () => {
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="md:h-[calc(100vh-5rem)] h-[70vh] w-full lg:w-1/2 rounded-2xl overflow-hidden shadow-2xl relative group"
+      className="md:h-[calc(100vh-6rem)] h-[70vh] w-full lg:w-1/2 rounded-xl overflow-hidden shadow-2xl relative group"
       style={{
         backgroundImage: "url(/images/hero-bg-2.png)",
         backgroundSize: "cover",

@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropertyHeader from './PropertyHeader';
 import PropertyDetails from './PropertyDetails';
 import ContactForm from './ContactForm';
@@ -9,16 +9,26 @@ import PropertyFloorPlan from './PropertyFloorPlan';
 import PropertyNearby from './PropertyNearby';
 
 const PropertyHomepage = () => {
+  const [isFixed, setIsFixed] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsFixed(window.scrollY >= 600);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-bgGray">
       <PropertyNavigation />
-      <div className="container mx-auto">
-        <div className="flex flex-col lg:flex-row relative">
+        <div className="flex flex-col lg:flex-row ">
           {/* Left Column - Images and Contact Form - Fixed */}
-          <div className="lg:w-[40=5%] lg:sticky lg:h-screen bg-gray-50 p-8 overflow-">
+          <div className="lg:w-[45%] bg-bgGray p-8 lg:sticky lg:top-16 lg:h-screen lg:overflow-y-scroll">
             <div className="max-w-xl mx-auto">
               <PropertyHeader />
-              <div className="mt-6">
+              <div className='sticky top-16'>
                 <ContactForm />
               </div>
             </div>
@@ -30,15 +40,12 @@ const PropertyHomepage = () => {
               <div id="overview">
                 <PropertyDetails />
               </div>
-              <div className='px-4 sm:px-6 lg:px-8'>
               <PropertyAmenities />
               <PropertyFloorPlan />
               <PropertyNearby />
-              </div>
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };

@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
 import Button from '../ui/Button';
 import { NAV_ITEMS } from '../../constants/navigation';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [activeDropdown, setActiveDropdown] = useState(null);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -19,6 +20,31 @@ const Navbar = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const handleMouseEnter = (label) => {
+        setActiveDropdown(label);
+    };
+
+    const handleMouseLeave = () => {
+        setActiveDropdown(null);
+    };
+
+    const dropdownVariants = {
+        hidden: { 
+            opacity: 0,
+            y: -5,
+            transition: {
+                duration: 0.2
+            }
+        },
+        visible: { 
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.2
+            }
+        }
+    };
 
     return (
         <motion.nav
@@ -40,20 +66,70 @@ const Navbar = () => {
                     {/* Nav Items (Hidden on mobile) */}
                     <div className="hidden md:flex items-center space-x-1">
                         {NAV_ITEMS.map((item) => {
-                            const isActive = pathname === item.href;
+                            const isActive = pathname === item.href || 
+                                           (item.children?.some(child => child.href === pathname));
                             return (
-                                <Link
+                                <div
                                     key={item.label}
-                                    href={item.href}
-                                    className={`relative px-4 py-2 text-sm font-medium text-gray-800 hover:text-primary transition-colors rounded-full hover:bg-gray-50`}
+                                    className="relative"
+                                    onMouseEnter={() => handleMouseEnter(item.label)}
+                                    onMouseLeave={handleMouseLeave}
                                 >
-                                    <div className="flex items-center">
-                                        {isActive && (
-                                            <span className="absolute -left-0.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    <Link
+                                        href={item.href}
+                                        className={`relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full flex items-center group
+                                            ${isActive 
+                                                ? 'text-primary bg-quaternary' 
+                                                : 'text-gray-800 hover:text-primary hover:bg-gray-50'}`}
+                                    >
+                                        <div className="flex items-center">
+                                            {isActive && (
+                                                <span className="absolute -left-0.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                            )}
+                                            <span className={`ml-${isActive ? '4' : '2'}`}>{item.label}</span>
+                                            {item.children && (
+                                                <FiChevronDown 
+                                                    className={`ml-1 transition-transform duration-200 ${
+                                                        activeDropdown === item.label ? 'rotate-180' : ''
+                                                    }`} 
+                                                    size={14} 
+                                                />
+                                            )}
+                                        </div>
+                                    </Link>
+                                    <AnimatePresence>
+                                        {item.children && activeDropdown === item.label && (
+                                            <motion.div
+                                                initial="hidden"
+                                                animate="visible"
+                                                exit="hidden"
+                                                variants={dropdownVariants}
+                                                className="absolute top-full left-0 mt-2 py-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 backdrop-blur-sm"
+                                            >
+                                                {item.children.map((child) => {
+                                                    const isChildActive = pathname === child.href;
+                                                    return (
+                                                        <Link
+                                                            key={child.label}
+                                                            href={child.href}
+                                                            className={`block px-4 py-2.5 text-sm transition-all duration-200
+                                                                ${isChildActive 
+                                                                    ? 'text-primary bg-quaternary font-medium' 
+                                                                    : 'text-gray-700 hover:text-primary hover:bg-gray-50'}`}
+                                                        >
+                                                            <div className="flex items-center">
+                                                                {isChildActive && (
+                                                                    <span className="mr-2 w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                                                )}
+                                                                {child.label}
+                                                            </div>
+                                                        </Link>
+                                                    );
+                                                })}
+                                            </motion.div>
                                         )}
-                                        <span className={`ml-${isActive ? '4' : '2'}`}>{item.label}</span>
-                                    </div>
-                                </Link>
+                                    </AnimatePresence>
+                                </div>
                             );
                         })}
                     </div>
@@ -67,8 +143,11 @@ const Navbar = () => {
 
                     {/* Auth Button and Mobile Menu Button */}
                     <div className="flex items-center space-x-4">
-                        <div className="hidden md:block">
+                        <div className="hidden md:flex gap-3">
                             <Button variant="ghost" className="!py-2 !px-6">
+                                Get Loan
+                            </Button>
+                            <Button variant="primary" className="!py-2 !px-6">
                                 Get Started
                             </Button>
                         </div>
@@ -97,28 +176,80 @@ const Navbar = () => {
                     >
                         <div className="container mx-auto px-4 py-4 space-y-2">
                             {NAV_ITEMS.map((item) => {
-                                const isActive = pathname === item.href;
+                                const isActive = pathname === item.href || 
+                                               (item.children?.some(child => child.href === pathname));
                                 return (
-                                    <Link
-                                        key={item.label}
-                                        href={item.href}
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                                            isActive 
-                                                ? 'bg-quaternary text-primary' 
-                                                : 'text-gray-800 hover:bg-gray-50'
-                                        }`}
-                                    >
-                                        <div className="flex items-center">
-                                            {isActive && (
-                                                <span className="mr-2 w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                            )}
-                                            {item.label}
+                                    <div key={item.label}>
+                                        <div
+                                            onClick={() => {
+                                                if (item.children) {
+                                                    setActiveDropdown(activeDropdown === item.label ? null : item.label);
+                                                } else {
+                                                    setIsMobileMenuOpen(false);
+                                                }
+                                            }}
+                                            className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer ${
+                                                isActive 
+                                                    ? 'bg-quaternary text-primary' 
+                                                    : 'text-gray-800 hover:bg-gray-50'
+                                            }`}
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center">
+                                                    {isActive && (
+                                                        <span className="mr-2 w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                                    )}
+                                                    {item.label}
+                                                </div>
+                                                {item.children && (
+                                                    <FiChevronDown
+                                                        className={`transform transition-transform duration-200 ${
+                                                            activeDropdown === item.label ? 'rotate-180' : ''
+                                                        }`}
+                                                    />
+                                                )}
+                                            </div>
                                         </div>
-                                    </Link>
+                                        <AnimatePresence>
+                                            {item.children && activeDropdown === item.label && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: -10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: -10 }}
+                                                    transition={{ duration: 0.2 }}
+                                                    className="pl-4 mt-1 space-y-1"
+                                                >
+                                                    {item.children.map((child) => {
+                                                        const isChildActive = pathname === child.href;
+                                                        return (
+                                                            <Link
+                                                                key={child.label}
+                                                                href={child.href}
+                                                                onClick={() => setIsMobileMenuOpen(false)}
+                                                                className={`block px-4 py-2.5 text-sm transition-all duration-200 rounded-lg
+                                                                    ${isChildActive 
+                                                                        ? 'bg-quaternary text-primary font-medium' 
+                                                                        : 'text-gray-700 hover:bg-gray-50 hover:text-primary'}`}
+                                                            >
+                                                                <div className="flex items-center">
+                                                                    {isChildActive && (
+                                                                        <span className="mr-2 w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                                                    )}
+                                                                    {child.label}
+                                                                </div>
+                                                            </Link>
+                                                        );
+                                                    })}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
                                 );
                             })}
-                            <div className="pt-2">
+                            <div className="pt-2 space-y-2">
+                                <Button variant="ghost" className="w-full !py-3">
+                                    Get Loan
+                                </Button>
                                 <Button variant="primary" className="w-full !py-3">
                                     Get Started
                                 </Button>

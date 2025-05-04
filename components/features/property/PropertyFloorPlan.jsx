@@ -42,22 +42,22 @@ const PropertyFloorPlan = () => {
     <div id="floor-plan" className="scroll-mt-16">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl font-semibold text-primary">Floor Plans</h2>
-        <span className="text-sm text-tertiary bg-primary/5 px-4 py-1.5 rounded-full">
+        <span className="text-sm text-primary bg-secondary px-4 py-1.5 rounded-full">
           {floorPlans.length} Floors
         </span>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
+      <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
         {/* Floor Selection Tabs */}
-        <div className="flex border-b border-gray-100">
+        <div className="flex border-b border-lightgray">
           {floorPlans.map((plan, index) => (
             <button
               key={index}
               onClick={() => setActiveFloor(index)}
-              className={`flex-1 px-6 py-4 text-sm font-medium transition-colors duration-200
+              className={`flex-1 px-6 py-4 text-sm font-medium transition-all duration-200
                 ${activeFloor === index 
-                  ? 'text-primary border-b-2 border-primary' 
-                  : 'text-tertiary hover:text-primary'
+                  ? 'text-secondary border-b-2 border-secondary bg-highlight' 
+                  : 'text-tertiary hover:text-secondary hover:bg-quaternary'
                 }`}
             >
               {plan.name}
@@ -70,9 +70,9 @@ const PropertyFloorPlan = () => {
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Floor Plan Image */}
             <div className="lg:w-2/3">
-              <div className="aspect-[16/9] bg-gray-50 rounded-xl overflow-hidden">
+              <div className="aspect-[16/9] bg-quaternary rounded-xl overflow-hidden">
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-gray-400">Floor Plan Image</span>
+                  <span className="text-muted">Floor Plan Image</span>
                 </div>
               </div>
             </div>
@@ -82,20 +82,20 @@ const PropertyFloorPlan = () => {
               {/* Specs */}
               <div className="space-y-4">
                 <div className="flex items-center gap-3 text-tertiary">
-                  <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center">
-                    <FaRuler className="text-xl text-primary" />
+                  <div className="w-10 h-10 rounded-full bg-highlight flex items-center justify-center">
+                    <FaRuler className="text-xl text-secondary" />
                   </div>
                   <span className="font-medium">Size: {floorPlans[activeFloor].specs.size}</span>
                 </div>
                 <div className="flex items-center gap-3 text-tertiary">
-                  <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center">
-                    <FaBed className="text-xl text-primary" />
+                  <div className="w-10 h-10 rounded-full bg-highlight flex items-center justify-center">
+                    <FaBed className="text-xl text-secondary" />
                   </div>
                   <span className="font-medium">Bedrooms: {floorPlans[activeFloor].specs.bedrooms}</span>
                 </div>
                 <div className="flex items-center gap-3 text-tertiary">
-                  <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center">
-                    <FaBath className="text-xl text-primary" />
+                  <div className="w-10 h-10 rounded-full bg-highlight flex items-center justify-center">
+                    <FaBath className="text-xl text-secondary" />
                   </div>
                   <span className="font-medium">Bathrooms: {floorPlans[activeFloor].specs.bathrooms}</span>
                 </div>
@@ -103,11 +103,11 @@ const PropertyFloorPlan = () => {
 
               {/* Features */}
               <div>
-                <h4 className="text-sm font-medium text-gray-500 mb-3">Features</h4>
+                <h4 className="text-sm font-medium text-muted mb-3">Features</h4>
                 <div className="space-y-2">
                   {floorPlans[activeFloor].specs.features.map((feature, index) => (
                     <div key={index} className="flex items-center gap-2 text-tertiary">
-                      <MdOutlineKeyboardArrowRight className="text-primary" />
+                      <MdOutlineKeyboardArrowRight className="text-secondary" />
                       <span>{feature}</span>
                     </div>
                   ))}

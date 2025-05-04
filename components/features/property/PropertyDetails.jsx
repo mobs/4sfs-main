@@ -39,17 +39,17 @@ Whether you're looking to continue its legacy as a renowned destination or shape
 If you'd like more information or want to see the resort, get in touch with us today.`;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+    <div className="max-w-7xl mx-auto animate-fade-in">
       {/* Title Section */}
-      <div className="mb-8 bg-quaternary/10 py-6 rounded-lg">
+      <div className="mb-8 py-6 rounded-lg">
         <h1 className="text-3xl font-semibold mb-3 text-primary">Aruna GrandView Residences at Sinar Valley</h1>
         <div className="flex items-center gap-6 text-sm">
-          <div className="flex items-center gap-2 text-secondary">
-            <MdLocationOn className="text-xl" />
-            <span className="font-medium">Residence</span>
+          <div className="flex items-center gap-2">
+            <MdLocationOn className="text-secondary text-xl" />
+            <span className="text-tertiary font-medium">Residence</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-secondary text-xl">★</span>
+            <span className="text-accent text-xl">★</span>
             <span className="text-tertiary font-medium">4.5 Review</span>
           </div>
         </div>
@@ -59,9 +59,9 @@ If you'd like more information or want to see the resort, get in touch with us t
       <Container data={overview} />
 
       {/* Description Section */}
-      <div className="mb-8 shadow-sm">
+      <div className="mb-8">
         <h2 className="text-xl font-semibold mb-4 text-primary">Description</h2>
-        <div className="text-gray-600 space-y-4 leading-relaxed bg-white rounded-3xl p-6  border border-tertiary/20">
+        <div className="text-tertiary space-y-4 leading-relaxed bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-lightgray">
           {description.split('\n\n').map((paragraph, index) => (
             <p key={index} className="text-tertiary">{paragraph}</p>
           ))}
@@ -72,14 +72,12 @@ If you'd like more information or want to see the resort, get in touch with us t
       <Container 
         data={address} 
         title="Address" 
-        className="bg-quaternary/5"
       />
 
       {/* Details Section */}
       <Container 
         data={details} 
         title="Details" 
-        className="bg-quaternary/5"
       />
     </div>
   );

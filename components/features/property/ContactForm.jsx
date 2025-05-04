@@ -1,20 +1,17 @@
 import React from 'react';
-import Image from 'next/image';
 
 const ContactForm = () => {
   return (
-    <div className="bg-gray-100 rounded-xl p-6">
+    <div className="bg-bgGray rounded-xl p-6">
       <div className="flex items-center gap-2 mb-6">
-        <div className="w-8 h-8">
-          <Image
-            src="/logo.png"
+        <div className="w-12 h-12 border rounded-full">
+          <img
+            src="/logo-black.png"
             alt="Aruna Logo"
-            width={32}
-            height={32}
-            className="object-contain"
+            className="object-contain w-full h-full"
           />
         </div>
-        <span className="text-xl">Aruna</span>
+        <span className="text-sm text-darkgray">Liked this property? Connect With Us</span>
       </div>
 
       <form className="space-y-4">
@@ -22,7 +19,7 @@ const ContactForm = () => {
           <input
             type="text"
             placeholder="Name"
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-1 focus:ring-gray-300 focus:border-gray-300 placeholder-gray-400"
+            className="w-full px-4 py-3 border border-lightgray rounded-lg focus:ring-1 focus:ring-gray-300 focus:border-gray-300 placeholder-gray-400"
           />
         </div>
 
