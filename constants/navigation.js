@@ -9,6 +9,6 @@ export const NAV_ITEMS = [
             { label: 'Seller', href: '/become-a-seller' }
         ]
     },
-    { label: 'Blog', href: '/blog' },
+    { label: 'Blog', href: '/articles/blogs' },
     // { label: 'Contact', href: '/contact' },
 ]; 
